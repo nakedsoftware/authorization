@@ -96,3 +96,6 @@ set -e
 
 # Configure the /workspace directory as the safe directory
 git config --global --add safe.directory /workspace
+
+# Initialize the workspace for development
+./go setup
