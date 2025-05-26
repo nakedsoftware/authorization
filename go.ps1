@@ -94,7 +94,7 @@
 
 # go.ps1
 #
-# This program is a command lline utility that supports common commands that
+# This program is a command line utility that supports common commands that
 # developers will use when working in the repository.
 #
 # Usage: pwsh go.ps1 [command] [<args>]
