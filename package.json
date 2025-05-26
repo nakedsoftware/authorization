@@ -1,0 +1,52 @@
+{
+  "name": "@nakedsoftware/authorization",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Authorization Service provides identity and authorization services for Naked Software applications and services.",
+  "keywords": [
+    "authentication",
+    "authorization",
+    "identity",
+    "jwt",
+    "naked",
+    "openid",
+    "oauth",
+    "webauthn"
+  ],
+  "homepage": "https://nakedsoftware.github.io/authorization",
+  "bugs": {
+    "email": "support@naked.software",
+    "url": "https://github.com/nakedsoftware/authorization/issues"
+  },
+  "license": "UNLICENSED",
+  "contributors": [
+    {
+      "name": "Michael Collins",
+      "email": "michael.collins@naked.software",
+      "url": "https://michaelfcollins3.dev"
+    }
+  ],
+  "repository": "github:nakedsoftware/authorization",
+  "scripts": {
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "husky": "^9.1.7"
+  },
+  "engines": {
+    "node": "22.16.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "onFail": "warn"
+    },
+    "packageManager": {
+      "name": "npm",
+      "onFail": "warn"
+    }
+  },
+  "private": true
+}

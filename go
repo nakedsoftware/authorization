@@ -92,7 +92,37 @@
 # By using the Software, you acknowledge that you have read this Agreement,
 # understand it, and agree to be bound by its terms and conditions.
 
-set -e
+# go
+#
+# This program is a command line utility that supports common commands that
+# developers will use with working in the repository.
+#
+# Usage: ./go <command> [<args>]
 
-# Configure the /workspace directory as the safe directory
-git config --global --add safe.directory /workspace
+# Check if an argument was provided
+if [ $# -eq 0 ]; then
+  echo "Error: No command specified."
+  echo "Usage: $0 command"
+  exit 1
+fi
+
+# Get the command from the first argument
+command_arg="$1"
+executable="go-$command_arg"
+
+# First check if the executable exists in the scripts/go subdirectory
+if [ -x "./scripts/go/$executable" ]; then
+  echo "Executing local ./bin/$executable..."
+  "./bin/$executable" "${@:2}"
+  exit $?
+fi
+
+# If not in local bin, check if it exists in PATH
+if command -v "$executable" &> /dev/null; then
+  echo "Executing $executable from PATH..."
+  "$executable"
+  exit $?
+else
+  echo "Error: Command '$executable' not found or not executable."
+  exit 127
+fi

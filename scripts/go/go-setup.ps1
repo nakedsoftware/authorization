@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env pwsh
 
 # Copyright 2025 Naked Software, LLC
 #
@@ -92,7 +92,20 @@
 # By using the Software, you acknowledge that you have read this Agreement,
 # understand it, and agree to be bound by its terms and conditions.
 
-set -e
+# go-setup.ps1
+#
+# This program performs the one-time setup that is required after cloning the
+# Git repository. This program automates installing dependencies, generating
+# source and project files, and configuring the local repository for
+# development.
+#
+# This program should be run using the `go.ps1` command in the root directory of
+# the repository.
+#
+# Usage: ./go setup
 
-# Configure the /workspace directory as the safe directory
-git config --global --add safe.directory /workspace
+# Exit immediately if a command exits with a non-zero status
+$ErrorActionPreference = 'Stop'
+
+# Install NPM dependencies
+npm ci

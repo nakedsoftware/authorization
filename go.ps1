@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env pwsh
 
 # Copyright 2025 Naked Software, LLC
 #
@@ -92,7 +92,66 @@
 # By using the Software, you acknowledge that you have read this Agreement,
 # understand it, and agree to be bound by its terms and conditions.
 
-set -e
+# go.ps1
+#
+# This program is a command lline utility that supports common commands that
+# developers will use when working in the repository.
+#
+# Usage: pwsh go.ps1 [command] [<args>]
 
-# Configure the /workspace directory as the safe directory
-git config --global --add safe.directory /workspace
+# Check if an argument was provided
+if ($args.Count -eq 0) {
+    Write-Host "Error: No command specified." -ForegroundColor Red
+    Write-Host "Usage: $($MyInvocation.MyCommand.Name) command"
+    exit 1
+}
+
+# Get the command from the first argument
+$command_arg = $args[0]
+$executable = "go-$command_arg"
+
+# Create an array with remaining arguments (args[1] and beyond)
+$remainingArgs = $args | Select-Object -Skip 1
+
+# Check if a PowerShell script with the command name exists in the scripts/go 
+# subdirectory
+$localScriptPath = Join-Path -Path "$PSScriptRoot/scripts/go" -ChildPath "$executable.ps1"
+if (Test-Path -Path $localScriptPath -PathType Leaf) {
+    Write-Host "Executing local ./scripts/go/$executable.ps1..."
+    $process = Start-Process -FilePath $localScriptPath -ArgumentList $remainingArgs -NoNewWindow -PassThru -Wait
+    exit $process.ExitCode
+}
+
+# Check if the executable exists in the bin subdirectory
+$localExecutablePath = Join-Path -Path "./scripts/go" -ChildPath $executable
+if (Test-Path -Path $localExecutablePath -PathType Leaf) {
+    Write-Host "Executing local ./scripts/go/$executable..."
+    $process = Start-Process -FilePath $localExecutablePath -ArgumentList $remainingArgs -NoNewWindow -PassThru -Wait
+    exit $process.ExitCode
+}
+
+# Check if the executable exists in the bin subdirectory with .exe extension
+$localExecutablePathExe = Join-Path -Path "./scripts/go" -ChildPath "$executable.exe"
+if (Test-Path -Path $localExecutablePathExe -PathType Leaf) {
+    Write-Host "Executing local ./scripts/go/$executable.exe..."
+    $process = Start-Process -FilePath $localExecutablePathExe -ArgumentList $remainingArgs -NoNewWindow -PassThru -Wait
+    exit $process.ExitCode
+}
+
+# If not in local bin, check if it exists in PATH
+if (Get-Command $executable -ErrorAction SilentlyContinue) {
+    Write-Host "Executing $executable from PATH..."
+    $process = Start-Process -FilePath $executable -ArgumentList $remainingArgs -NoNewWindow -PassThru -Wait
+    exit $process.ExitCode
+}
+
+# If not in local bin, check if it exists in PATH with .exe extension
+$executableWithExe = "$executable.exe"
+if (Get-Command $executableWithExe -ErrorAction SilentlyContinue) {
+    Write-Host "Executing $executableWithExe from PATH..."
+    $process = Start-Process -FilePath $executableWithExe -ArgumentList $remainingArgs -NoNewWindow -PassThru -Wait
+    exit $process.ExitCode
+} else {
+    Write-Host "Error: Command '$executable' not found or not executable." -ForegroundColor Red
+    exit 127
+}
