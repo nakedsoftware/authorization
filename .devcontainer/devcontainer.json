@@ -1,0 +1,23 @@
+{
+    "name": "authorization",
+    "dockerComposeFile": "compose.yaml",
+    "service": "auth",
+    "workspaceFolder": "/workspace",
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/powershell:1": {},
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "22.16.0"
+        }
+    },
+    "remoteUser": "vscode",
+    "postCreateCommand": "bash .devcontainer/post-create.sh",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "tamasfe.even-better-toml",
+                "ms-vscode.powershell"
+            ]
+        }
+    }
+}
