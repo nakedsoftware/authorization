@@ -110,9 +110,9 @@ fi
 command_arg="$1"
 executable="go-$command_arg"
 
-# First check if the executable exists in the scripts/go subdirectory
-if [ -x "./scripts/go/$executable" ]; then
-  "./scripts/go/$executable" "${@:2}"
+# First check if the executable exists in the bin subdirectory
+if [ -x "./bin/$executable" ]; then
+  "./bin/$executable" "${@:2}"
   exit $?
 fi
 

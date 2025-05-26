@@ -113,23 +113,23 @@ $executable = "go-$command_arg"
 # Create an array with remaining arguments (args[1] and beyond)
 $remainingArgs = $args | Select-Object -Skip 1
 
-# Check if a PowerShell script with the command name exists in the scripts/go 
+# Check if a PowerShell script with the command name exists in the bin 
 # subdirectory
-$localScriptPath = Join-Path -Path "$PSScriptRoot/scripts/go" -ChildPath "$executable.ps1"
+$localScriptPath = Join-Path -Path "$PSScriptRoot/bin" -ChildPath "$executable.ps1"
 if (Test-Path -Path $localScriptPath -PathType Leaf) {
     $process = Start-Process -FilePath $localScriptPath -ArgumentList $remainingArgs -NoNewWindow -PassThru -Wait
     exit $process.ExitCode
 }
 
 # Check if the executable exists in the bin subdirectory
-$localExecutablePath = Join-Path -Path "./scripts/go" -ChildPath $executable
+$localExecutablePath = Join-Path -Path "./bin" -ChildPath $executable
 if (Test-Path -Path $localExecutablePath -PathType Leaf) {
     $process = Start-Process -FilePath $localExecutablePath -ArgumentList $remainingArgs -NoNewWindow -PassThru -Wait
     exit $process.ExitCode
 }
 
 # Check if the executable exists in the bin subdirectory with .exe extension
-$localExecutablePathExe = Join-Path -Path "./scripts/go" -ChildPath "$executable.exe"
+$localExecutablePathExe = Join-Path -Path "./bin" -ChildPath "$executable.exe"
 if (Test-Path -Path $localExecutablePathExe -PathType Leaf) {
     $process = Start-Process -FilePath $localExecutablePathExe -ArgumentList $remainingArgs -NoNewWindow -PassThru -Wait
     exit $process.ExitCode
