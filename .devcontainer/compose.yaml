@@ -97,7 +97,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ..:/workspace:cached
-      - ./aspnet:/https
     # This is the service that hosts the development environment, so we need
     # to keep the container running so that we can work in it. We use the
     # `sleep infinity` command to keep the container running indefinitely.
