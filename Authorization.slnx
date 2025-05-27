@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/aspire/">
+    <Project Path="src/aspire/AuthorizationHost/AuthorizationHost.csproj" />
+  </Folder>
+</Solution>
