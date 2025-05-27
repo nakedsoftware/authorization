@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Copyright 2025 Naked Software, LLC
 #
 # Version 1.0.0 (May 26, 2025)
@@ -90,20 +92,6 @@
 # By using the Software, you acknowledge that you have read this Agreement,
 # understand it, and agree to be bound by its terms and conditions.
 
-services:
-  auth:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ..:/workspace:cached
-      - ./aspnet:/https
-    # This is the service that hosts the development environment, so we need
-    # to keep the container running so that we can work in it. We use the
-    # `sleep infinity` command to keep the container running indefinitely.
-    command: sleep infinity
-    # Ptrace-based debuggers like C++, Go, and Rust require the following.
-    cap_add:
-      - SYS_PTRACE
-    security_opt:
-      - seccomp:unconfined
+set -e
+
+dotnet new install Aspire.ProjectTemplates::9.3.0 --force

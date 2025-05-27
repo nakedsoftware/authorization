@@ -6,17 +6,24 @@
     "features": {
         "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers/features/powershell:1": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
         "ghcr.io/devcontainers/features/node:1": {
             "version": "22.16.0"
+        },
+        "ghcr.io/devcontainers/features/dotnet:2": {
+            "version": "9.0.300"
         }
     },
     "remoteUser": "vscode",
+    "onCreateCommand": "bash .devcontainer/on-create.sh",
     "postCreateCommand": "bash .devcontainer/post-create.sh",
+    "postStartCommand": "bash .devcontainer/post-start.sh",
     "customizations": {
         "vscode": {
             "extensions": [
                 "tamasfe.even-better-toml",
-                "ms-vscode.powershell"
+                "ms-vscode.powershell",
+                "ms-dotnettools.csharp"
             ]
         }
     }

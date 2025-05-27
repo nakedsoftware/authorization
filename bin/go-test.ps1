@@ -1,3 +1,5 @@
+#!/usr/bin/env pwsh
+
 # Copyright 2025 Naked Software, LLC
 #
 # Version 1.0.0 (May 26, 2025)
@@ -90,20 +92,20 @@
 # By using the Software, you acknowledge that you have read this Agreement,
 # understand it, and agree to be bound by its terms and conditions.
 
-services:
-  auth:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ..:/workspace:cached
-      - ./aspnet:/https
-    # This is the service that hosts the development environment, so we need
-    # to keep the container running so that we can work in it. We use the
-    # `sleep infinity` command to keep the container running indefinitely.
-    command: sleep infinity
-    # Ptrace-based debuggers like C++, Go, and Rust require the following.
-    cap_add:
-      - SYS_PTRACE
-    security_opt:
-      - seccomp:unconfined
+# go-setup.ps1
+#
+# This program automates building and running the automated tests for the
+# Authorization Service product. This program can be used to ensure that there
+# are no test failures or build failures and that the Authorization Service is
+# functioning correctly.
+#
+# This program should be run using the `go.ps1` command in the root directory of
+# the repository.
+#
+# Usage: ./go build
+
+# Exit immediately if a command exits with a non-zero status
+$ErrorActionPreference = 'Stop'
+
+# Run the tests on the .NET components
+dotnet test
